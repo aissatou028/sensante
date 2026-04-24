@@ -5,9 +5,7 @@ interface StatCardProps {
   couleur: string;
 }
 
-export default function StatCard({
-  titre, valeur, unite, couleur
-}: StatCardProps) {
+export default function StatCard({ titre, valeur, unite, couleur }: StatCardProps) {
   return (
     <div className={`bg-white rounded-lg shadow-md p-6 border-t-4 ${couleur}`}>
       <p className="text-sm text-gray-500">{titre}</p>

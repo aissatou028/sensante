@@ -10,13 +10,5 @@ Assistant de santé communautaire avec IA.
 - NextAuth.js
 - Docker Compose
 
-## Installation
-```bash
-npm install
-cp .env.example .env
-npx prisma db push
-npm run dev
-```
-
 ## Équipe
 Licence 3 GLSI - ESP/UCAD - 2025-2026

@@ -21,7 +21,11 @@ export default function PatientsPage() {
   async function chargerPatients() {
     const res = await fetch("/api/patients");
     const data = await res.json();
-    setPatients(data);
+    if (Array.isArray(data)) {
+      setPatients(data);
+    } else {
+      setPatients([]);
+    }
     setLoading(false);
   }
 
@@ -52,7 +56,7 @@ export default function PatientsPage() {
       {loading ? (
         <p className="text-gray-500">Chargement...</p>
       ) : patients.length === 0 ? (
-        <p className="text-gray-500">Aucun patient enregistré.</p>
+        <p className="text-gray-500">Aucun patient enregistre.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {patients.map((p) => (
@@ -60,8 +64,8 @@ export default function PatientsPage() {
               <h3 className="font-bold text-gray-800">
                 {p.prenom} {p.nom}
               </h3>
-              <p className="text-gray-600">Région : {p.region}</p>
-              <p className="text-gray-600">Âge : {calculerAge(p.dateNaissance)} ans</p>
+              <p className="text-gray-600">Region : {p.region}</p>
+              <p className="text-gray-600">Age : {calculerAge(p.dateNaissance)} ans</p>
               <p className="text-gray-600">Sexe : {p.sexe}</p>
             </div>
           ))}

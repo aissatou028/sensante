@@ -19,12 +19,16 @@ export default function ConsultationsPage() {
             date="18 mars 2025"
             symptomes="Fièvre, toux, fatigue"
             statut="termine" 
+            diagnosticIa="Grippe Saisonnière" // AJOUT IA
+            confiance={85}                   // AJOUT IA
           />
           <ConsultationCard
             patient="Ibrahima Ba"
             date="19 mars 2025"
             symptomes="Maux de tête, vertiges"
-            statut="en_attente" 
+            statut="termine" 
+            diagnosticIa="Migraine"           // AJOUT IA
+            confiance={92}                   // AJOUT IA
           />
         </div>
       </section>

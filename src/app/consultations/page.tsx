@@ -49,9 +49,7 @@ export default function ConsultationsPage() {
               <p className="text-sm text-gray-500">
                 Symptômes : {c.symptomes.join(", ")}
               </p>
-              <p className="text-xs text-gray-400">
-                Statut : {c.statut}
-              </p>
+              <p className="text-xs text-gray-400">Statut : {c.statut}</p>
               <DiagnosticIA
                 consultationId={c.id}
                 diagnosticExistant={c.diagnosticIa}

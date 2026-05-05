@@ -1,7 +1,7 @@
 # 🧠 Plan d'Intégration de l'Intelligence Artificielle — SénSanté
 
-**Responsable : L'Oracle ( [TON NOM ICI] )
-**Version : v0.2 (Lab Patients)
+Responsable : L'Oracle ( [TON NOM ICI] )
+Version : v0.2 (Lab Patients)
 
 ## 1. Choix Technologique
 * Fournisseur : Groq (LPU Inference Engine) pour garantir une réponse quasi instantanée.

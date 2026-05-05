@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@prisma/client": "^7.7.0",
+    "next": "...",
+    "react": "..."
+  },
+  "devDependencies": {
+    "prisma": "^7.7.0"
+  }
+}

@@ -31,11 +31,11 @@ export default function PatientForm({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    
+
     if (res.ok) {
-  (e.target as HTMLFormElement).reset();
-  onSuccess();
-}
+      e.currentTarget.reset();
+      onSuccess();
+    }
     setLoading(false);
   }
 

@@ -1,0 +1,11 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Gardez vos modèles (User, Patient, etc.) tels quels en dessous

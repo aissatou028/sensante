@@ -35,3 +35,12 @@ export default function ConsultationsPage() {
     </div>
   );
 }
+import DiagnosticIA from "@/components/DiagnosticIA";
+
+// Dans le map des consultations :
+<DiagnosticIA
+  consultationId={c.id}
+  diagnosticExistant={c.diagnosticIa}
+  confianceExistante={c.confiance}
+  onDiagnostic={charger}
+/>

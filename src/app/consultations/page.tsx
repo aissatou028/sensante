@@ -1,35 +1,69 @@
-import ConsultationCard from "@/components/ConsultationCard";
+"use client";
+import { useState, useEffect } from "react";
+import DiagnosticIA from "@/components/DiagnosticIA";
+
+interface Consultation {
+  id: number;
+  patient: {
+    nom: string;
+    prenom: string;
+  };
+  symptomes: string[];
+  notes: string | null;
+  statut: string;
+  diagnosticIa: string | null;
+  confiance: number | null;
+  createdAt: string;
+}
 
 export default function ConsultationsPage() {
+  const [consultations, setConsultations] = useState<Consultation[]>([]);
+
+  async function charger() {
+    const res = await fetch("/api/consultations");
+    if (res.ok) {
+      const data = await res.json();
+      setConsultations(data);
+    }
+  }
+
+  useEffect(() => {
+  let ignore = false;
+  fetch("/api/consultations").then(res => {
+    if (res.ok) res.json().then(data => {
+      if (!ignore) setConsultations(data);
+    });
+  });
+  return () => { ignore = true; };
+}, []);
+
   return (
     <div className="p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-blue-900">Espace Médecin</h1>
-        <p className="text-gray-600 italic">Session de : Coumba BA</p>
       </div>
-
       <section>
         <h2 className="text-xl font-semibold text-gray-800 mb-6">
-          Gestion des Consultations du jour
+          Gestion des Consultations
         </h2>
-        
         <div className="grid gap-4">
-          <ConsultationCard
-            patient="Aminata Sow"
-            date="18 mars 2025"
-            symptomes="Fièvre, toux, fatigue"
-            statut="termine" 
-            diagnosticIa="Grippe Saisonnière" // AJOUT IA
-            confiance={85}                   // AJOUT IA
-          />
-          <ConsultationCard
-            patient="Ibrahima Ba"
-            date="19 mars 2025"
-            symptomes="Maux de tête, vertiges"
-            statut="termine" 
-            diagnosticIa="Migraine"           // AJOUT IA
-            confiance={92}                   // AJOUT IA
-          />
+          {consultations.map((c) => (
+            <div key={c.id} className="p-4 bg-white rounded-lg shadow">
+              <p className="font-bold text-gray-800">
+                {c.patient.prenom} {c.patient.nom}
+              </p>
+              <p className="text-sm text-gray-500">
+                Symptômes : {c.symptomes.join(", ")}
+              </p>
+              <p className="text-xs text-gray-400">Statut : {c.statut}</p>
+              <DiagnosticIA
+                consultationId={c.id}
+                diagnosticExistant={c.diagnosticIa}
+                confianceExistante={c.confiance}
+                onDiagnostic={charger}
+              />
+            </div>
+          ))}
         </div>
       </section>
     </div>

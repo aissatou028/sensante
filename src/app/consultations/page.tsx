@@ -28,8 +28,14 @@ export default function ConsultationsPage() {
   }
 
   useEffect(() => {
-    charger();
-  }, []);
+  let ignore = false;
+  fetch("/api/consultations").then(res => {
+    if (res.ok) res.json().then(data => {
+      if (!ignore) setConsultations(data);
+    });
+  });
+  return () => { ignore = true; };
+}, []);
 
   return (
     <div className="p-6">
@@ -41,7 +47,6 @@ export default function ConsultationsPage() {
           Gestion des Consultations
         </h2>
         <div className="grid gap-4">
-setup/oracle
           {consultations.map((c) => (
             <div key={c.id} className="p-4 bg-white rounded-lg shadow">
               <p className="font-bold text-gray-800">
@@ -59,39 +64,8 @@ setup/oracle
               />
             </div>
           ))}
-
-          <ConsultationCard
-            patient="Aminata Sow"
-            date="18 mars 2025"
-            symptomes="Fièvre, toux, fatigue"
-            statut="termine" 
-            diagnosticIa="Grippe Saisonnière" // AJOUT IA
-            confiance={85}                   // AJOUT IA
-          />
-          <ConsultationCard
-            patient="Ibrahima Ba"
-            date="19 mars 2025"
-            symptomes="Maux de tête, vertiges"
-            statut="termine" 
-            diagnosticIa="Migraine"           // AJOUT IA
-            confiance={92}                   // AJOUT IA
-          />
- main
         </div>
       </section>
     </div>
   );
- setup/oracle
 }
-
-}
-import DiagnosticIA from "@/components/DiagnosticIA";
-
-// Dans le map des consultations :
-<DiagnosticIA
-  consultationId={c.id}
-  diagnosticExistant={c.diagnosticIa}
-  confianceExistante={c.confiance}
-  onDiagnostic={charger}
-/>
- main

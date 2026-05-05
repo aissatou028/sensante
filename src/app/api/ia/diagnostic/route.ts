@@ -58,6 +58,7 @@ export async function POST(request: Request) {
       consultation: updated,
     });
   } catch (error) {
+    console.error("ERREUR IA:", error);
     return NextResponse.json(
       { error: "Erreur lors de l'analyse IA" },
       { status: 500 }

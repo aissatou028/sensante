@@ -15,8 +15,7 @@ export async function GET() {
     include: {
       patient: true,
     },
-    orderBy: {   date: "desc",
- },
+    orderBy: { date: "desc" },
   });
   return NextResponse.json(consultations);
 }

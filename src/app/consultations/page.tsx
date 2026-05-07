@@ -27,15 +27,8 @@ export default function ConsultationsPage() {
     }
   }
 
-  useEffect(() => {
-  let ignore = false;
-  fetch("/api/consultations").then(res => {
-    if (res.ok) res.json().then(data => {
-      if (!ignore) setConsultations(data);
-    });
-  });
-  return () => { ignore = true; };
-}, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { charger(); }, []);
 
   return (
     <div className="p-6">

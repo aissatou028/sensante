@@ -43,7 +43,7 @@ export default function ConsultationsPage() {
 
   async function soumettre() {
     if (!patientId || symptomes.length === 0) {
-      setMessage("Sélectionne un patient et au moins un symptôme.");
+      setMessage("Selectionne un patient et au moins un symptome.");
       return;
     }
     const res = await fetch("/api/consultations", {
@@ -52,35 +52,31 @@ export default function ConsultationsPage() {
       body: JSON.stringify({ patientId: parseInt(patientId), symptomes, notes }),
     });
     if (res.ok) {
-      setMessage("✅ Consultation enregistrée !");
+      setMessage("Consultation enregistree !");
       setPatientId(""); setSymptomes([]); setNotes("");
       charger();
     } else {
-      setMessage("❌ Erreur lors de l'enregistrement.");
+      setMessage("Erreur lors de l enregistrement.");
     }
   }
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold text-blue-900 mb-8">Espace Médecin</h1>
-
-      {/* Formulaire */}
+      <h1 className="text-3xl font-bold text-blue-900 mb-8">Espace Medecin</h1>
       <section className="bg-white rounded-lg shadow p-6 mb-8">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Nouvelle Consultation</h2>
-
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">Patient</label>
           <select value={patientId} onChange={e => setPatientId(e.target.value)}
             className="w-full border rounded p-2 text-gray-800">
-            <option value="">-- Sélectionner un patient --</option>
+            <option value="">-- Selectionner un patient --</option>
             {patients.map(p => (
               <option key={p.id} value={p.id}>{p.prenom} {p.nom}</option>
             ))}
           </select>
         </div>
-
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Symptômes</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Symptomes</label>
           <div className="grid grid-cols-2 gap-2">
             {SYMPTOMES_LISTE.map(s => (
               <label key={s} className="flex items-center gap-2 text-sm text-gray-700">
@@ -91,22 +87,17 @@ export default function ConsultationsPage() {
             ))}
           </div>
         </div>
-
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
           <textarea value={notes} onChange={e => setNotes(e.target.value)}
             className="w-full border rounded p-2 text-gray-800" rows={3} />
         </div>
-
         {message && <p className="mb-3 text-sm font-medium text-blue-700">{message}</p>}
-
         <button onClick={soumettre}
           className="bg-teal-600 text-white px-6 py-2 rounded hover:bg-teal-700">
           Enregistrer la consultation
         </button>
       </section>
-
-      {/* Liste */}
       <section>
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Gestion des Consultations</h2>
         <div className="grid gap-4">

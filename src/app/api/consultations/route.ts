@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { NextResponse } from "next/server";
-
 export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -15,12 +14,10 @@ export async function GET() {
     include: {
       patient: true,
     },
-    orderBy: {   date: "desc",
- },
+    orderBy: { date: "desc" },
   });
   return NextResponse.json(consultations);
 }
-
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -37,6 +34,7 @@ export async function POST(request: Request) {
         symptomes: body.symptomes,
         notes: body.notes || null,
         statut: "en_attente",
+        userId: (session.user as any).id,
       },
       include: { patient: true },
     });

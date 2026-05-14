@@ -1,9 +1,5 @@
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 const SYSTEM_PROMPT = `Tu es un assistant médical pour le Sénégal. Tu analyses les symptômes signalés par un agent de santé communautaire et tu proposes un pré-diagnostic.
 Règles :
 - Tu donnes un niveau de confiance entre 0 et 100.
@@ -35,12 +31,12 @@ export async function analyserSymptomes(
   recommandation: string;
   urgence: string;
 }> {
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
   const userMessage = `Patient : ${patient.prenom} ${patient.nom}
-Âge : ${patient.age} ans | Sexe : ${patient.sexe} | Région : ${patient.region}
-Symptômes : ${symptomes.join(", ")}
+Age : ${patient.age} ans | Sexe : ${patient.sexe} | Region : ${patient.region}
+Symptomes : ${symptomes.join(", ")}
 ${notes ? `Notes : ${notes}` : ""}
-Propose un pré-diagnostic.`;
-
+Propose un pre-diagnostic.`;
   const completion = await groq.chat.completions.create({
     messages: [
       { role: "system", content: SYSTEM_PROMPT },
@@ -50,15 +46,14 @@ Propose un pré-diagnostic.`;
     temperature: 0.3,
     max_tokens: 500,
   });
-
   const response = completion.choices[0]?.message?.content || "{}";
   try {
     return JSON.parse(response);
   } catch {
     return {
-      diagnostic: "Analyse impossible. Réessayez.",
+      diagnostic: "Analyse impossible. Reessayez.",
       confiance: 0,
-      recommandation: "Consultez un professionnel de santé.",
+      recommandation: "Consultez un professionnel de sante.",
       urgence: "moyen",
     };
   }
